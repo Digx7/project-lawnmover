@@ -1,0 +1,60 @@
+
+Pseudocode
+
+Lawnmower algorithm
+
+// Inputs
+Given n                                                       
+Given DiskList[2n]    
+
+// Performance
+Step Count = (26n^2 + 14n - 12)
+Given that n^2 is the largest variable than this algorithm has O(n^2)
+
+// Algorithm
+While the numberOfSwitches > 0 do:                            // TS = insideCount*NumberOfLoops = (1 + 6(2n-1) + 7(2n-1)) * (n+1) = (26n - 12) * (n + 1) = (26n^2 + 26n - 12n - 12) = (26n^2 + 14n - 12)
+	
+	// resets the number of switches for each run
+	numberOfSwitches = 0                                      // TS = 1
+
+	// moves from left to right
+	for i = 0, i to 2n-1 do:                                  // TS = insideCount*NumberOfLoops = 6(2n-1)
+		if DiskList[i] == D && DiskList[i + 1] == L do:       
+			DiskList.swap(i)
+			numberOfSwitches += 1
+
+	// moves from right to left
+	for i = (2n-1), i to 0 do:                                // TS =  insideCount*NumberOfLoops = 7(2n-1)
+		if DiskList[i] == L && DiskList[i - 1] == D do:       
+			DiskList.swap(i-1)
+			numberOfSwitches += 1
+
+
+
+Alternate algorithm
+
+// Inputs
+Given n                                                                
+Given DiskList[n]  
+
+// Performance
+Step Count = (12n^2 + 22n - 4)
+Given that n^2 is the largest variable than this algorithm has O(n^2)
+
+// Algorithm
+While the numberOfSwitches > 0 do:                                     // TS = insideCount * NumberOfLoops = ( 1 + 6(2n/2) + 6((2n-1)/2) ) * (n+2) = ( (24n-4)/2 )(n+2) = (12n^2 + 22n - 4)
+
+	// resets the number of switches for each run
+	numberOfSwitches = 0                                               // TS = 1
+
+	// does the first run starting at the left most position
+	for i = 0, i to 2n at i+2 do:                                      // TS = insideCount * NumberOfLoops = 6(2n/2)
+		if DiskList[i] == D && DiskList[i + 1] == L do:                // TS = insideCount = 6 or 4 use largest number
+			DiskList.swap(i)
+			numberOfSwitches += 1
+
+	// does the second run starting at the second left most position
+	for i = 1, i to (2n-1) at i+2 do:                                  // TS = insideCount * NumberOfLoops = 6( (2n-1)/2 )
+		if DiskList[i] == D && DiskList[i + 1] == L do:                // TS = insideCount = 6 or 4 use largest number
+			DiskList.swap(i)
+			numberOfSwitches += 1
